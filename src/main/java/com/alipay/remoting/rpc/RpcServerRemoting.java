@@ -25,9 +25,7 @@ import com.alipay.remoting.RemotingAddressParser;
 import com.alipay.remoting.RemotingCommand;
 import com.alipay.remoting.Url;
 import com.alipay.remoting.exception.RemotingException;
-import com.alipay.remoting.log.BoltLoggerFactory;
 import com.alipay.remoting.util.RemotingUtil;
-import org.slf4j.Logger;
 
 /**
  * Rpc server remoting
