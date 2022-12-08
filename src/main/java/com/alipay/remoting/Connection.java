@@ -454,32 +454,6 @@ public class Connection {
         return invokeFutureMap;
     }
 
-    public void sendGoAwayCommand() {
-        try {
-            if (this.getChannel() != null) {
-                final GoAwayCommand goAwayCommand = new GoAwayCommand();
-                final Channel channel = this.getChannel();
-                this.getChannel().writeAndFlush(goAwayCommand).addListener(new ChannelFutureListener() {
-                    @Override
-                    public void operationComplete(ChannelFuture future) throws Exception {
-                        if (future.isSuccess()) {
-                            if (logger.isDebugEnabled()) {
-                                logger.debug("Send goAway done! Id={}, to remoteAddr={}",
-                                        goAwayCommand.getId(), RemotingUtil.parseRemoteAddress(channel));
-                            }
-                        } else {
-                            logger.error("Send goAway failed! Id={}, to remoteAddr={}", goAwayCommand.getId(),
-                                    RemotingUtil.parseRemoteAddress(channel));
-                        }
-                    }
-                });
-            }
-        } catch (Exception e) {
-            logger.warn("Exception caught when send goAway command to connection {}",
-                    RemotingUtil.parseRemoteAddress(channel), e);
-        }
-    }
-
     public boolean needClose(){
         return isGoAway() && isInvokeFutureMapFinish();
     }
