@@ -25,8 +25,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import com.alipay.remoting.rpc.GoAwayCommand;
-import com.alipay.remoting.rpc.HeartbeatCommand;
 import org.slf4j.Logger;
 
 import com.alipay.remoting.log.BoltLoggerFactory;
@@ -86,7 +84,8 @@ public class Connection {
     private AtomicBoolean                                                         closed           = new AtomicBoolean(
                                                                                                        false);
 
-    private AtomicBoolean                                                         goAway           = new AtomicBoolean(false);
+    private AtomicBoolean                                                         goAway           = new AtomicBoolean(
+                                                                                                       false);
 
     private final ConcurrentHashMap<String/* attr key*/, Object /*attr value*/> attributes       = new ConcurrentHashMap<String, Object>();
 
@@ -95,7 +94,6 @@ public class Connection {
 
     /** no reference of the current connection */
     private static final int                                                      NO_REFERENCE     = 0;
-
 
     /**
      * Constructor
@@ -195,7 +193,6 @@ public class Connection {
     public void setGoAway() {
         this.goAway.set(true);
     }
-
 
     /**
      * Get the address of the remote peer.
@@ -454,7 +451,7 @@ public class Connection {
         return invokeFutureMap;
     }
 
-    public boolean needClose(){
+    public boolean needClose() {
         return isGoAway() && isInvokeFutureMapFinish();
     }
 }

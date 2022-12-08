@@ -20,25 +20,14 @@ import com.alipay.remoting.CommandFactory;
 import com.alipay.remoting.Connection;
 import com.alipay.remoting.DefaultConnectionManager;
 import com.alipay.remoting.InvokeCallback;
-import com.alipay.remoting.InvokeCallbackListener;
 import com.alipay.remoting.InvokeContext;
-import com.alipay.remoting.InvokeFuture;
 import com.alipay.remoting.RemotingAddressParser;
 import com.alipay.remoting.RemotingCommand;
-import com.alipay.remoting.ResponseStatus;
-import com.alipay.remoting.TimerHolder;
 import com.alipay.remoting.Url;
 import com.alipay.remoting.exception.RemotingException;
 import com.alipay.remoting.log.BoltLoggerFactory;
-import com.alipay.remoting.rpc.exception.InvokeException;
 import com.alipay.remoting.util.RemotingUtil;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelFutureListener;
-import io.netty.util.Timeout;
-import io.netty.util.TimerTask;
 import org.slf4j.Logger;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * Rpc server remoting
@@ -47,8 +36,6 @@ import java.util.concurrent.TimeUnit;
  * @version $Id: RpcServerRemoting.java, v 0.1 Apr 14, 2016 12:00:39 PM xiaomin.cxm Exp $
  */
 public class RpcServerRemoting extends RpcRemoting {
-    private static final Logger logger                 = BoltLoggerFactory.getLogger("RpcRemoting");
-
 
     /**
      * default constructor

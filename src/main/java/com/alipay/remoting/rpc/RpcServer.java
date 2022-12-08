@@ -22,7 +22,6 @@ import java.net.InetSocketAddress;
 import java.security.KeyStore;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 import javax.net.ssl.KeyManagerFactory;
@@ -260,7 +259,6 @@ public class RpcServer extends AbstractRemotingServer {
             this.connectionEventHandler = new ConnectionEventHandler(this);
             this.connectionEventHandler.setConnectionEventListener(this.connectionEventListener);
         }
-
         initRpcRemoting();
 
         Integer tcpSoSndBuf = option(BoltGenericOption.TCP_SO_SNDBUF);
