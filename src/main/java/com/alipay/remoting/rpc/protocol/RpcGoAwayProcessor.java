@@ -14,23 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.alipay.remoting;
+package com.alipay.remoting.rpc.protocol;
 
-/**
- * Remoting command code stands for a specific remoting command, and every kind of command has its own code.
- * 
- * @author jiangping
- * @version $Id: CommandCode.java, v 0.1 2015-9-7 PM7:10:18 tao Exp $
- */
-public interface CommandCode {
-    // value 0 is occupied by heartbeat, don't use value 0 for other commands
-    short HEARTBEAT_VALUE = 0;
-    short GOAWAY_VALUE    = 100;
+import com.alipay.remoting.AbstractRemotingProcessor;
+import com.alipay.remoting.RemotingCommand;
+import com.alipay.remoting.RemotingContext;
+import com.alipay.remoting.rpc.GoAwayCommand;
 
-    /**
-     * 
-     * @return the short value of the code
-     */
-    short value();
-
+public class RpcGoAwayProcessor extends AbstractRemotingProcessor {
+    @Override
+    public void doProcess(RemotingContext ctx, RemotingCommand msg) throws Exception {
+        if (msg instanceof GoAwayCommand) {// process the goAway
+            ctx.getConnection().setGoAway();
+            if (ctx.getConnection().isInvokeFutureMapFinish()) {
+                ctx.getConnection().close();
+            }
+        }
+    }
 }

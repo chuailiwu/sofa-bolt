@@ -84,6 +84,9 @@ public class Connection {
     private AtomicBoolean                                                         closed           = new AtomicBoolean(
                                                                                                        false);
 
+    private AtomicBoolean                                                         goAway           = new AtomicBoolean(
+                                                                                                       false);
+
     private final ConcurrentHashMap<String/* attr key*/, Object /*attr value*/> attributes       = new ConcurrentHashMap<String, Object>();
 
     /** the reference count used for this connection. If equals 2, it means this connection has been referenced 2 times */
@@ -181,6 +184,14 @@ public class Connection {
      */
     public boolean noRef() {
         return this.referenceCount.get() == NO_REFERENCE;
+    }
+
+    public boolean isGoAway() {
+        return goAway.get();
+    }
+
+    public void setGoAway() {
+        this.goAway.set(true);
     }
 
     /**
@@ -438,5 +449,9 @@ public class Connection {
      */
     public ConcurrentHashMap<Integer, InvokeFuture> getInvokeFutureMap() {
         return invokeFutureMap;
+    }
+
+    public boolean needClose() {
+        return isGoAway() && isInvokeFutureMapFinish();
     }
 }
